@@ -12,14 +12,14 @@ const TabNavigator = () => {
       screenOptions={({route}) => ({
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#000',
+          backgroundColor: '#ffffff',
         },
         tabBarIcon: () => {
           if (route.name === 'Home') {
-            return <Icon name="home" size={20} color="#fff" />;
+            return <Icon name="home" size={20} color="#484848" />;
           }
           if (route.name === 'AddCrypto') {
-            return <Icon name="plus" size={20} color="#fff" />;
+            return <Icon name="plus" size={20} color="#484848" />;
           }
         },
       })}>

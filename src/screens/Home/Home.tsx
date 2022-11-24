@@ -1,11 +1,15 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import ListOfCrypto from '../../components/ListCryptos/ListOfCrypto';
+
+import User from '../../components/User/User';
+import {ContainerHome} from './Style';
 
 const Home = () => {
   return (
-    <View>
-      <Text>home</Text>
-    </View>
+    <ContainerHome>
+      <User />
+      <ListOfCrypto />
+    </ContainerHome>
   );
 };
 
