@@ -1,9 +1,21 @@
-import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import React, {useContext, useEffect} from 'react';
+import {FlatList, Text} from 'react-native';
 import Crypto from '../Crypto/Crypto';
-import {ContainerListCryptos, SeparatorList, TextTitle} from './Style';
+import {
+  ContainerListCryptos,
+  NothingToSee,
+  SeparatorList,
+  TextTitle,
+} from './Style';
+import {CryptoListContext} from '../../context/CryptoLIstContext';
 
 const ListOfCrypto = () => {
+  const {cryptoListState} = useContext(CryptoListContext);
+
+  useEffect(() => {
+    // console.log(cryptoListState.crypto);
+  }, [cryptoListState]);
+
   const array = [
     {
       name: 'Bitcoin',
@@ -57,12 +69,18 @@ const ListOfCrypto = () => {
     <>
       <ContainerListCryptos>
         <TextTitle>Wallets</TextTitle>
-        <FlatList
-          data={array}
-          renderItem={({item}) => <Crypto />}
-          keyExtractor={item => item.name}
-          ItemSeparatorComponent={() => FlatListItemSeparator()}
-        />
+        {!cryptoListState || cryptoListState.crypto.length === 0 ? (
+          <NothingToSee>
+            <Text>Nothing to see here! Please Add a CryptoCurrency</Text>
+          </NothingToSee>
+        ) : (
+          <FlatList
+            data={cryptoListState.crypto}
+            renderItem={({item}) => <Crypto crypto={item} />}
+            keyExtractor={item => item.name}
+            ItemSeparatorComponent={() => FlatListItemSeparator()}
+          />
+        )}
       </ContainerListCryptos>
     </>
   );

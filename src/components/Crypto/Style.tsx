@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
+import {Colors} from '../../utilities/Colors';
 
 export const ContainerEachCrypto = styled.View`
   width: 100%;
   height: 80px;
-  background-color: #fcfcfc;
+  background-color: ${Colors.white};
   border-radius: 25px;
   margin-bottom: 10px;
   padding: 15px;
@@ -29,12 +30,12 @@ export const NameAndSymbol = styled.View`
 export const TextNameCrypto = styled.Text`
   font-size: 15px;
   font-weight: bold;
-  color: #000;
+  color: ${Colors.black};
 `;
 
 export const TextSymbolCrypto = styled.Text`
   font-size: 12px;
-  color: #000;
+  color: ${Colors.black};
 `;
 
 export const ImageCoin = styled.Image`

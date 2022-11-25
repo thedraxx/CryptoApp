@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
+import {CryptoSearchInterface} from '../../interfaces/CryptoSearchInterface';
 import {
   Center,
   ContainerEachCrypto,
@@ -10,26 +11,38 @@ import {
   TextNameCrypto,
   TextSymbolCrypto,
 } from './Style';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Crypto = () => {
+interface Props {
+  crypto: CryptoSearchInterface;
+}
+
+const Crypto = ({crypto}: Props) => {
+  console.log(crypto);
   return (
     <ContainerEachCrypto>
       <Left>
-        <ImageCoin source={require('../../assets/images/bitcoin.png')} />
+        <ImageCoin source={{uri: crypto.image.small}} />
         <NameAndSymbol>
-          <TextNameCrypto>Bitcoin</TextNameCrypto>
-          <TextSymbolCrypto>BTC</TextSymbolCrypto>
+          <TextNameCrypto>{crypto.id}</TextNameCrypto>
+          <TextSymbolCrypto>{crypto.symbol}</TextSymbolCrypto>
         </NameAndSymbol>
       </Left>
 
-      <Center>
-        <ImageCoin source={require('../../assets/images/chart.jpg')} />
-      </Center>
+      {crypto.market_data.ath_change_percentage.usd < 0 ? (
+        <Center>
+          <Icon name="line-chart" size={20} color="#ff0000" />
+        </Center>
+      ) : (
+        <Center>
+          <Icon name="line-chart" size={20} color="#43ff43" />
+        </Center>
+      )}
 
       <Right>
         <NameAndSymbol>
-          <Text>$0.99</Text>
-          <Text>0,01%</Text>
+          <Text>{crypto.market_data.current_price.usd} USD</Text>
+          <Text>{crypto.market_data.ath_change_percentage.usd}</Text>
         </NameAndSymbol>
       </Right>
     </ContainerEachCrypto>

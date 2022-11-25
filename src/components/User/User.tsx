@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {Colors} from '../../utilities/Colors';
 import {ContainerInfoUser, ImageUser} from './Style';
 import {
   ContainerInfo,
@@ -16,7 +17,7 @@ const User = () => {
         useAngle={true}
         angle={250}
         angleCenter={{x: 0.5, y: 0.5}}
-        colors={['#bce0ff', '#0088ff']}
+        colors={[Colors.primary, Colors.secondary]}
         style={styles.linearGradient}>
         <ContainerSalute>
           <ContainerInfoUser>
@@ -35,15 +36,7 @@ export default User;
 var styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-  },
-  buttonText: {
-    fontSize: 18,
-    fontFamily: 'Gill Sans',
-    textAlign: 'center',
-    margin: 10,
-    color: '#ffffff',
-    backgroundColor: 'transparent',
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
   },
 });
