@@ -1,5 +1,5 @@
-import React, {useContext, useEffect} from 'react';
-import {FlatList, Text} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {FlatList, RefreshControl, Text} from 'react-native';
 import Crypto from '../Crypto/Crypto';
 import {
   ContainerListCryptos,
@@ -10,59 +10,17 @@ import {
 import {CryptoListContext} from '../../context/CryptoLIstContext';
 
 const ListOfCrypto = () => {
-  const {cryptoListState} = useContext(CryptoListContext);
-
-  useEffect(() => {
-    // console.log(cryptoListState.crypto);
-  }, [cryptoListState]);
-
-  const array = [
-    {
-      name: 'Bitcoin',
-      price: 10000,
-      symbol: 'BTC',
-      percent_change_1h: 1,
-    },
-    {
-      name: 'Ethereum',
-      price: 10000,
-      symbol: 'ETH',
-      percent_change_1h: 1,
-    },
-    {
-      name: 'Ripple',
-      price: 10000,
-      symbol: 'XRP',
-    },
-    {
-      name: 'Bitcoin Cash',
-      price: 10000,
-      symbol: 'BCH',
-    },
-    {
-      name: 'Litecoin',
-      price: 10000,
-      symbol: 'LTC',
-    },
-    {
-      name: 'EOS',
-      price: 10000,
-      symbol: 'EOS',
-    },
-    {
-      name: 'Binance Coin',
-      price: 10000,
-      symbol: 'BNB',
-    },
-    {
-      name: 'Stellar',
-      price: 10000,
-      symbol: 'XLM',
-    },
-  ];
+  const {cryptoListState, updateCryptos} = useContext(CryptoListContext);
+  const [refreshing, setRefreshing] = useState(false);
 
   const FlatListItemSeparator = () => {
     return <SeparatorList />;
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    updateCryptos();
+    setRefreshing(false);
   };
 
   return (
@@ -78,6 +36,9 @@ const ListOfCrypto = () => {
             data={cryptoListState.crypto}
             renderItem={({item}) => <Crypto crypto={item} />}
             keyExtractor={item => item.name}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
             ItemSeparatorComponent={() => FlatListItemSeparator()}
           />
         )}

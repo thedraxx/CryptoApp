@@ -1,7 +1,9 @@
 import React, {useContext} from 'react';
+import {Alert} from 'react-native';
 import {useForm} from '../../components/hooks/useForm';
 import {
   ContainerAddCrypto,
+  ContainerAlert,
   ContainerInput,
   TextInputCrypto,
   Tittle,
@@ -13,11 +15,19 @@ const AddCrypto = () => {
     search: '',
   });
 
-  const {addCryptoListState} = useContext(CryptoListContext);
+  const {addCryptoListState, isFetching, changeAlert} =
+    useContext(CryptoListContext);
 
   return (
     <ContainerAddCrypto>
       <ContainerInput>
+        {isFetching && (
+          <ContainerAlert>
+            {Alert.alert('Great', 'CryptoCurrency Added', [
+              {text: 'OK', onPress: () => changeAlert()},
+            ])}
+          </ContainerAlert>
+        )}
         <Tittle>Add Cryptocurrency</Tittle>
         <TextInputCrypto
           placeholder="Search"
@@ -25,7 +35,9 @@ const AddCrypto = () => {
           autoCapitalize="none"
           onChangeText={(value: string) => onChange(value, 'search')}
           value={form.search}
-          onSubmitEditing={() => addCryptoListState(form.search)}
+          onSubmitEditing={() =>
+            addCryptoListState(form.search.toLowerCase().trim())
+          }
         />
       </ContainerInput>
     </ContainerAddCrypto>

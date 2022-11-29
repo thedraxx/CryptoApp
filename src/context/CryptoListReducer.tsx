@@ -1,10 +1,15 @@
 import {CryptoSearchInterface} from '../interfaces/CryptoSearchInterface';
 import {CryptoListState} from './CryptoLIstContext';
 
-type CryptoListAction = {
-  type: 'addCrypto';
-  payload: CryptoSearchInterface;
-};
+type CryptoListAction =
+  | {
+      type: 'addCrypto';
+      payload: CryptoSearchInterface;
+    }
+  | {
+      type: 'updateCrypto';
+      payload: CryptoSearchInterface;
+    };
 
 export const CryptoListReducer = (
   state: CryptoListState,
@@ -15,6 +20,18 @@ export const CryptoListReducer = (
       return {
         ...state,
         crypto: [...state.crypto, action.payload],
+      };
+
+    case 'updateCrypto':
+      return {
+        ...state,
+        crypto: state.crypto.map(cry => {
+          if (cry.id === action.payload.id) {
+            return action.payload;
+          } else {
+            return cry;
+          }
+        }),
       };
   }
 

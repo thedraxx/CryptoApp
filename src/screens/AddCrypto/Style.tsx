@@ -30,3 +30,10 @@ export const Tittle = styled.Text`
   color: ${Colors.darkGray};
   margin-bottom: 20px;
 `;
+
+export const ContainerAlert = styled.View`
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  z-index: 999;
+`;

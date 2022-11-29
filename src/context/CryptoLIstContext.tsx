@@ -1,4 +1,4 @@
-import React, {createContext, useReducer} from 'react';
+import React, {createContext, useReducer, useState} from 'react';
 import CryptoApi from '../api/CryptoApi';
 import {CryptoSearchInterface} from '../interfaces/CryptoSearchInterface';
 import {CryptoListReducer} from './CryptoListReducer';
@@ -7,19 +7,20 @@ import {CryptoListReducer} from './CryptoListReducer';
 
 export interface CryptoListState {
   crypto: CryptoSearchInterface[];
-  isFetch: boolean;
 }
 
 // Estado Inicial
 export const CryptoListInitialState: CryptoListState = {
   crypto: [],
-  isFetch: false,
 };
 
 // Lo usamos para decirle a React como luce y que expone el context
 export interface CryptoListContextProps {
   cryptoListState: CryptoListState;
   addCryptoListState: (userSearch: string) => void;
+  isFetching: boolean;
+  changeAlert: () => void;
+  updateCryptos: () => void;
 }
 
 // Crear el contexto
@@ -31,6 +32,11 @@ export const CryptoListProvider = ({children}: any) => {
     CryptoListReducer,
     CryptoListInitialState,
   );
+  const [isFetching, setIsFetching] = useState(false);
+
+  const changeAlert = () => {
+    setIsFetching(false);
+  };
 
   const addCryptoListState = async (userSearch: string) => {
     try {
@@ -38,6 +44,20 @@ export const CryptoListProvider = ({children}: any) => {
         `/coins/${userSearch}`,
       );
       dispatch({type: 'addCrypto', payload: crypto.data});
+      setIsFetching(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateCryptos = () => {
+    try {
+      cryptoListState.crypto.map(async cry => {
+        const cryptoUpdated = await CryptoApi.get<CryptoSearchInterface>(
+          `/coins/${cry.name.toLowerCase()}`,
+        );
+        dispatch({type: 'updateCrypto', payload: cryptoUpdated.data});
+      });
     } catch (error) {
       console.log(error);
     }
@@ -48,6 +68,9 @@ export const CryptoListProvider = ({children}: any) => {
       value={{
         cryptoListState,
         addCryptoListState,
+        isFetching,
+        changeAlert,
+        updateCryptos,
       }}>
       {children}
     </CryptoListContext.Provider>
