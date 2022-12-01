@@ -1,11 +1,10 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {Alert} from 'react-native';
 import {useForm} from '../../components/hooks/useForm';
 import {
   ContainerAddCrypto,
   ContainerAlert,
   ContainerInput,
-  ContainerResults,
   TextInputCrypto,
   Tittle,
 } from './Style';
@@ -16,8 +15,7 @@ const AddCrypto = () => {
   const {form, onChange} = useForm({
     search: '',
   });
-  const {addCryptoListState, isFetching, changeAlert} =
-    useContext(CryptoListContext);
+  const {isFetching, changeAlert} = useContext(CryptoListContext);
   function handleSearch() {
     throw new Error('Function not implemented.');
   }
@@ -39,10 +37,7 @@ const AddCrypto = () => {
           autoCapitalize="none"
           onChangeText={(value: string) => onChange(value, 'search')}
           value={form.search}
-          onSubmitEditing={() =>
-            // addCryptoListState(form.search.toLowerCase().trim())
-            handleSearch()
-          }
+          onSubmitEditing={() => handleSearch()}
         />
         <Search search={form.search.toLowerCase().trim()} />
       </ContainerInput>

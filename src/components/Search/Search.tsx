@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useContext, useEffect, useState} from 'react';
 import {FlatList, TouchableOpacity} from 'react-native';
 import {
   ContainerEmpty,
@@ -17,6 +18,7 @@ import {
 import {CryptoUserSearch} from '../../interfaces/CryptoUserSearch';
 import CryptoApi from '../../api/CryptoApi';
 import {SeparatorList} from './Style';
+import {CryptoListContext} from '../../context/CryptoLIstContext';
 
 interface Props {
   search: string;
@@ -24,21 +26,19 @@ interface Props {
 
 const Search = ({search}: Props) => {
   const [userCryptoSearch, setUserCryptoSearch] = useState<CryptoUserSearch>();
-  const [isFetching, setIsFetching] = useState(false);
+  const {addCryptoListState} = useContext(CryptoListContext);
 
   useEffect(() => {
     getCryptoSearch();
   }, [search]);
 
   const getCryptoSearch = async () => {
-    setIsFetching(true);
     if (search.length > 0) {
       const CryptoSearch = await CryptoApi.get<CryptoUserSearch>(
         `/search?query=${search}`,
       );
       setUserCryptoSearch(CryptoSearch.data);
     }
-    setIsFetching(false);
   };
 
   const FlatListItemSeparator = () => {
@@ -56,7 +56,11 @@ const Search = ({search}: Props) => {
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => FlatListItemSeparator()}
           renderItem={crypto => (
-            <TouchableOpacity>
+            <TouchableOpacity
+              style={{flex: 1}}
+              onPress={() =>
+                addCryptoListState(crypto.item.name.toLowerCase().trim())
+              }>
               <ContainerEachCrypto>
                 <Left>
                   <ImageCoin source={{uri: crypto.item.thumb}} />
