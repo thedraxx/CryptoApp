@@ -1,5 +1,6 @@
 import {CryptoSearchInterface} from '../interfaces/CryptoSearchInterface';
 import {CryptoListState} from './CryptoLIstContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type CryptoListAction =
   | {
@@ -17,6 +18,10 @@ export const CryptoListReducer = (
 ): CryptoListState => {
   switch (action.type) {
     case 'addCrypto':
+      AsyncStorage.setItem(
+        'cryptoList',
+        JSON.stringify([...state.crypto, action.payload]),
+      );
       return {
         ...state,
         crypto: [...state.crypto, action.payload],

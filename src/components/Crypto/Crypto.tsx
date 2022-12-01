@@ -18,7 +18,6 @@ interface Props {
 }
 
 const Crypto = ({crypto}: Props) => {
-  console.log(crypto);
   return (
     <TouchableOpacity>
       <ContainerEachCrypto>

@@ -4,6 +4,8 @@ import {Colors} from '../../utilities/Colors';
 export const ContainerAddCrypto = styled.View`
   flex: 1;
   background-color: ${Colors.white};
+  width: 100%;
+  height: 100%;
 `;
 
 export const ContainerInput = styled.View`

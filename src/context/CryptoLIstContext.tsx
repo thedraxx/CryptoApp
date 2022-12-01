@@ -2,7 +2,6 @@ import React, {createContext, useReducer, useState} from 'react';
 import CryptoApi from '../api/CryptoApi';
 import {CryptoSearchInterface} from '../interfaces/CryptoSearchInterface';
 import {CryptoListReducer} from './CryptoListReducer';
-
 // Definir como luce y que expone el context
 
 export interface CryptoListState {
