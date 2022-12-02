@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {CryptoSearchInterface} from '../../interfaces/CryptoSearchInterface';
 import {
   Center,
@@ -7,8 +7,11 @@ import {
   ImageCoin,
   Left,
   NameAndSymbol,
+  PriceAndPercentage,
   Right,
   TextNameCrypto,
+  TextPercentage,
+  TextPrice,
   TextSymbolCrypto,
 } from './Style';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,31 +22,30 @@ interface Props {
 
 const Crypto = ({crypto}: Props) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity style={{flex: 1}}>
       <ContainerEachCrypto>
         <Left>
           <ImageCoin source={{uri: crypto.image.small}} />
           <NameAndSymbol>
-            <TextNameCrypto>{crypto.id}</TextNameCrypto>
+            <TextNameCrypto>{crypto.name}</TextNameCrypto>
             <TextSymbolCrypto>{crypto.symbol}</TextSymbolCrypto>
           </NameAndSymbol>
         </Left>
 
-        {crypto.market_data.ath_change_percentage.usd < 0 ? (
-          <Center>
+        <Center>
+          {crypto.market_data.ath_change_percentage.usd < 0 ? (
             <Icon name="line-chart" size={20} color="#ff0000" />
-          </Center>
-        ) : (
-          <Center>
+          ) : (
             <Icon name="line-chart" size={20} color="#43ff43" />
-          </Center>
-        )}
-
+          )}
+        </Center>
         <Right>
-          <NameAndSymbol>
-            <Text>{crypto.market_data.current_price.usd} USD</Text>
-            <Text>{crypto.market_data.ath_change_percentage.usd}</Text>
-          </NameAndSymbol>
+          <PriceAndPercentage>
+            <TextPrice>{crypto.market_data.current_price.usd} USD</TextPrice>
+            <TextPercentage>
+              {crypto.market_data.ath_change_percentage.usd}
+            </TextPercentage>
+          </PriceAndPercentage>
         </Right>
       </ContainerEachCrypto>
     </TouchableOpacity>

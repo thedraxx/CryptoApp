@@ -24,6 +24,7 @@ export const TextInputCrypto = styled.TextInput`
   padding-left: 20px;
   padding-right: 20px;
   text-align: center;
+  color: ${Colors.black};
 `;
 
 export const Tittle = styled.Text`

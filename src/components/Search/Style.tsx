@@ -67,11 +67,12 @@ export const RanksContainer = styled.View`
 export const TitleRank = styled.Text`
   font-size: 15px;
   font-weight: bold;
+  color: ${Colors.black};
 `;
 
 export const TextRank = styled.Text`
   font-size: 15px;
-
+  color: ${Colors.black};
   justify-content: center;
   align-items: center;
 `;

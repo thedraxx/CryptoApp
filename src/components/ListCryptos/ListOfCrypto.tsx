@@ -1,4 +1,6 @@
-import React, {useContext, useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+// eslint-disable-next-line react-hooks/exhaustive-deps
+import React, {useContext, useEffect, useState} from 'react';
 import {FlatList, RefreshControl, Text} from 'react-native';
 import Crypto from '../Crypto/Crypto';
 import {
@@ -8,9 +10,11 @@ import {
   TextTitle,
 } from './Style';
 import {CryptoListContext} from '../../context/CryptoLIstContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ListOfCrypto = () => {
-  const {cryptoListState, updateCryptos} = useContext(CryptoListContext);
+  const {cryptoListState, updateCryptos, ReadStorage} =
+    useContext(CryptoListContext);
   const [refreshing, setRefreshing] = useState(false);
 
   const FlatListItemSeparator = () => {
@@ -21,6 +25,21 @@ const ListOfCrypto = () => {
     setRefreshing(true);
     updateCryptos();
     setRefreshing(false);
+  };
+
+  useEffect(() => {
+    StartReadStorage();
+  }, []);
+
+  const StartReadStorage = async () => {
+    try {
+      const CryptoStorage = await AsyncStorage.getItem('cryptoList');
+      if (CryptoStorage) {
+        ReadStorage();
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

@@ -2,6 +2,7 @@ import React, {createContext, useReducer, useState} from 'react';
 import CryptoApi from '../api/CryptoApi';
 import {CryptoSearchInterface} from '../interfaces/CryptoSearchInterface';
 import {CryptoListReducer} from './CryptoListReducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // Definir como luce y que expone el context
 
 export interface CryptoListState {
@@ -20,6 +21,7 @@ export interface CryptoListContextProps {
   isFetching: boolean;
   changeAlert: () => void;
   updateCryptos: () => void;
+  ReadStorage: () => void;
 }
 
 // Crear el contexto
@@ -62,6 +64,18 @@ export const CryptoListProvider = ({children}: any) => {
     }
   };
 
+  const ReadStorage = async () => {
+    const CryptoStorage = await AsyncStorage.getItem('cryptoList');
+    try {
+      if (CryptoStorage) {
+        const JsonValue = JSON.parse(CryptoStorage);
+        dispatch({type: 'updateCryptoStorage', payload: JsonValue});
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <CryptoListContext.Provider
       value={{
@@ -70,6 +84,7 @@ export const CryptoListProvider = ({children}: any) => {
         isFetching,
         changeAlert,
         updateCryptos,
+        ReadStorage,
       }}>
       {children}
     </CryptoListContext.Provider>

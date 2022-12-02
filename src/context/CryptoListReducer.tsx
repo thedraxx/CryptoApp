@@ -10,6 +10,10 @@ type CryptoListAction =
   | {
       type: 'updateCrypto';
       payload: CryptoSearchInterface;
+    }
+  | {
+      type: 'updateCryptoStorage';
+      payload: any;
     };
 
 export const CryptoListReducer = (
@@ -22,10 +26,14 @@ export const CryptoListReducer = (
         'cryptoList',
         JSON.stringify([...state.crypto, action.payload]),
       );
-      return {
-        ...state,
-        crypto: [...state.crypto, action.payload],
-      };
+      if (state.crypto.map(cry => cry.name).includes(action.payload.name)) {
+        return {...state};
+      } else {
+        return {
+          ...state,
+          crypto: [...state.crypto, action.payload],
+        };
+      }
 
     case 'updateCrypto':
       return {
@@ -37,6 +45,12 @@ export const CryptoListReducer = (
             return cry;
           }
         }),
+      };
+
+    case 'updateCryptoStorage':
+      return {
+        ...state,
+        crypto: action.payload,
       };
   }
 

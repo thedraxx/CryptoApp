@@ -58,25 +58,25 @@ const Search = ({search}: Props) => {
           renderItem={crypto => (
             <TouchableOpacity
               style={{flex: 1}}
-              onPress={() =>
-                addCryptoListState(crypto.item.name.toLowerCase().trim())
-              }>
-              <ContainerEachCrypto>
-                <Left>
-                  <ImageCoin source={{uri: crypto.item.thumb}} />
-                  <NameAndSymbol>
-                    <TextNameCrypto>{crypto.item.name}</TextNameCrypto>
-                    <TextSymbolCrypto>{crypto.item.symbol}</TextSymbolCrypto>
-                  </NameAndSymbol>
-                </Left>
+              onPress={() => addCryptoListState(crypto.item.id.toLowerCase())}>
+              <>
+                <ContainerEachCrypto>
+                  <Left>
+                    <ImageCoin source={{uri: crypto.item.thumb}} />
+                    <NameAndSymbol>
+                      <TextNameCrypto>{crypto.item.name}</TextNameCrypto>
+                      <TextSymbolCrypto>{crypto.item.symbol}</TextSymbolCrypto>
+                    </NameAndSymbol>
+                  </Left>
 
-                <Right>
-                  <RanksContainer>
-                    <TitleRank>Rank: </TitleRank>
-                    <TextRank>{crypto.item.market_cap_rank}</TextRank>
-                  </RanksContainer>
-                </Right>
-              </ContainerEachCrypto>
+                  <Right>
+                    <RanksContainer>
+                      <TitleRank>Rank: </TitleRank>
+                      <TextRank>{crypto.item.market_cap_rank}</TextRank>
+                    </RanksContainer>
+                  </Right>
+                </ContainerEachCrypto>
+              </>
             </TouchableOpacity>
           )}
         />
