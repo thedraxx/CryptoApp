@@ -22,6 +22,7 @@ export interface CryptoListContextProps {
   changeAlert: () => void;
   updateCryptos: () => void;
   ReadStorage: () => void;
+  deleteCrypto: (id: string) => void;
 }
 
 // Crear el contexto
@@ -55,7 +56,7 @@ export const CryptoListProvider = ({children}: any) => {
     try {
       cryptoListState.crypto.map(async cry => {
         const cryptoUpdated = await CryptoApi.get<CryptoSearchInterface>(
-          `/coins/${cry.name.toLowerCase()}`,
+          `/coins/${cry.id}`,
         );
         dispatch({type: 'updateCrypto', payload: cryptoUpdated.data});
       });
@@ -76,6 +77,10 @@ export const CryptoListProvider = ({children}: any) => {
     }
   };
 
+  const deleteCrypto = (id: string) => {
+    dispatch({type: 'deleteCrypto', payload: id});
+  };
+
   return (
     <CryptoListContext.Provider
       value={{
@@ -85,6 +90,7 @@ export const CryptoListProvider = ({children}: any) => {
         changeAlert,
         updateCryptos,
         ReadStorage,
+        deleteCrypto,
       }}>
       {children}
     </CryptoListContext.Provider>

@@ -14,6 +14,10 @@ type CryptoListAction =
   | {
       type: 'updateCryptoStorage';
       payload: any;
+    }
+  | {
+      type: 'deleteCrypto';
+      payload: string;
     };
 
 export const CryptoListReducer = (
@@ -51,6 +55,16 @@ export const CryptoListReducer = (
       return {
         ...state,
         crypto: action.payload,
+      };
+
+    case 'deleteCrypto':
+      AsyncStorage.setItem(
+        'cryptoList',
+        JSON.stringify(state.crypto.filter(cry => cry.id !== action.payload)),
+      );
+      return {
+        ...state,
+        crypto: state.crypto.filter(cry => cry.id !== action.payload),
       };
   }
 

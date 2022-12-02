@@ -76,4 +76,6 @@ export const TextPercentage = styled.Text`
 export const PriceAndPercentage = styled.View`
   flex-direction: column;
   left: 0px;
+
+  flex: 1;
 `;

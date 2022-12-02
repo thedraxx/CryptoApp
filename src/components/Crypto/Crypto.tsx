@@ -1,5 +1,5 @@
-import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import React, {useContext} from 'react';
+import {TouchableOpacity, Alert} from 'react-native';
 import {CryptoSearchInterface} from '../../interfaces/CryptoSearchInterface';
 import {
   Center,
@@ -15,14 +15,27 @@ import {
   TextSymbolCrypto,
 } from './Style';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {CryptoListContext} from '../../context/CryptoLIstContext';
 
 interface Props {
   crypto: CryptoSearchInterface;
 }
 
 const Crypto = ({crypto}: Props) => {
+  const {deleteCrypto} = useContext(CryptoListContext);
+
+  const AlertMessage = (id: string) =>
+    Alert.alert('Delete Crypto?', 'Press Ok if you want to do that', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => deleteCrypto(id)},
+    ]);
+
   return (
-    <TouchableOpacity style={{flex: 1}}>
+    <TouchableOpacity style={{flex: 1}} onPress={() => AlertMessage(crypto.id)}>
       <ContainerEachCrypto>
         <Left>
           <ImageCoin source={{uri: crypto.image.small}} />

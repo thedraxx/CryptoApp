@@ -39,4 +39,7 @@ export const ContainerAlert = styled.View`
   width: 100px;
   height: 100px;
   z-index: 999;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
 `;
