@@ -6,16 +6,22 @@
 ## 📷 Screenshots
 
 ## HOME SCREEN:
+![image](https://user-images.githubusercontent.com/55867157/205355441-ee92c5f2-b726-4631-a842-92dbbe5bfeea.png)
 
-## ADD TASK:
+## ADD CRYPTO:
+![image](https://user-images.githubusercontent.com/55867157/205355499-27a58570-b1ed-4a57-91be-4b58a6debed0.png)
 
-## TASK ADDED:
+## SHOW SEARCH CRYPTO:
+![image](https://user-images.githubusercontent.com/55867157/205355582-9273d62e-582f-4505-ba41-9ffe7b228956.png)
 
-## TASK COMPLETED
+## ALERT CRYPTO ADDED
+![image](https://user-images.githubusercontent.com/55867157/205355655-5c478673-cb5f-41c5-959a-896ddb11a1b1.png)
 
+## Crypto ADDED IN HOME SCREEN
+![image](https://user-images.githubusercontent.com/55867157/205355728-ee3d6ce2-0b92-434d-849e-6400d8f379fa.png)
 
 ## 🎥 A little video of the app:
-
+https://user-images.githubusercontent.com/55867157/205359412-845d67bb-909a-4124-a41f-d581e26c8426.mp4
 
 <br> The app is made with the following technologies:</br>
 
